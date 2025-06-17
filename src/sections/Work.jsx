@@ -16,8 +16,8 @@ const Work = () => {
             title: "Redline Rush",
             description:
                 "An adrenaline-pumping racing game with stunning graphics and realistic physics. Experience high-speed thrills across diverse tracks with customizable vehicles and competitive multiplayer modes.",
-            image: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXoyaHhzNHBxOWVkOTg5Z2k5ZXd3cW9ucjhlMXQxYXplc2NqOXlobyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JHsos369mkc0M/giphy.gif",
-            link: "#redline-rush",
+            image: "/gifs/redline.gif",
+            link: "https://redline-rush.vercel.app/",
             skills: [
                 { name: "React", color: "#61DAFB" },
                 { name: "Tailwind", color: "#38BDF8" },
@@ -31,8 +31,8 @@ const Work = () => {
             title: "iPhone Showcase",
             description:
                 "A sleek 3D product showcase featuring the latest iPhone models. Interactive demonstrations highlighting key features with smooth animations and responsive design for optimal user experience.",
-            image: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21vYmxwczlhYWQ2bDRmdnVlOGxwdG4yMGRoNHQwNnhhM2drOHNuMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/C6YNH3ixB5wHe/giphy.gif",
-            link: "#iphone-showcase",
+            image: "/gifs/iphone.gif",
+            link: "https://iphone-showcase-xi.vercel.app/",
             skills: [
                 { name: "React", color: "#61DAFB" },
                 { name: "Tailwind", color: "#38BDF8" },
@@ -46,12 +46,13 @@ const Work = () => {
             title: "Weather Now",
             description:
                 "Real-time weather application with beautiful animations and comprehensive forecasts. Features location-based updates, interactive maps, and personalized weather alerts for informed decisions.",
-            image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTFhaDZ5d205cmdvbWdheDlmZzkxOW04OTY1Z3JtaGRzYzQ5NWpjMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHGZkrolm9UgvM4/giphy.gif",
-            link: "#weather-now",
+            image: "/gifs/weather.gif",
+            link: "https://github.com/Vishesh-code-22/WeatherAppExpress",
             skills: [
                 { name: "Express", color: "#43B581" },
                 { name: "CSS", color: "#1572B6" },
                 { name: "REST API", color: "#e34c26" },
+                { name: "EJS", color: "#A91E50" },
             ],
         },
     ];
