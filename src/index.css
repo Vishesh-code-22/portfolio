@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Mona Sans", sans-serif;
+    --color-white-50: #d9ecff;
+    --color-black-50: #1c1c21;
+    --color-black-100: #0e0e10;
+    --color-black-200: #282732;
+    --color-blue-50: #839cb5;
+    --color-blue-100: #2d2d38;
+}
+
+.highlight1 {
+    background: linear-gradient(
+        270deg,
+        #fff4e0,
+        /* soft cream */ #facc6b,
+        /* goldenrod */ #ffd700,
+        /* classic gold */ #ffb347,
+        /* orange-gold */ #ffeaa7,
+        /* pale gold */ #ffc300,
+        /* mustard gold */ #eab543,
+        /* bronze hint */ #f3c623,
+        /* bright yellow gold */ #fff4e0 /* soft cream */
+    );
+}
+
+.highlight2 {
+    background: linear-gradient(
+        270deg,
+        #00c6ff,
+        /* light cyan */ #0072ff,
+        /* strong blue */ #00bfff,
+        /* deep sky blue */ #4facfe,
+        /* electric blue */ #005bea,
+        /* royal blue */ #38a1db,
+        /* twitter blue */ #00f2fe,
+        /* neon aqua */ #6dd5ed,
+        /* sky teal */ #00c6ff /* repeat light cyan */
+    );
+}
+
+.highlight3 {
+    background: linear-gradient(
+        270deg,
+        #b9fbc0,
+        /* mint */ #70e000,
+        /* neon lime */ #00ff87,
+        /* green-cyan */ #38f9d7,
+        /* aqua mint */ #23ce6b,
+        /* spring green */ #00c896,
+        /* tropical teal */ #3feee6,
+        /* glowing teal */ #00ff00,
+        /* vivid green */ #b9fbc0 /* back to mint */
+    );
+}
+
+.headline span {
+    background-size: 200% 100%;
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-background 3s linear infinite;
+}
+
+@keyframes animate-background {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.perspective-1000 {
+    perspective: 1000px;
+}
