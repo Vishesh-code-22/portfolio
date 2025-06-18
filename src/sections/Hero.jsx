@@ -88,21 +88,30 @@ const Hero = () => {
             </p>
             <div className="buttons flex flex-col sm:flex-row gap-6 sm:gap-4 mt-4 sm:mt-6 md:mt-8 items-center w-full sm:w-auto">
                 <div className="socials flex gap-4 sm:gap-6 order-2 sm:order-1">
-                    <a href="#" aria-label="GitHub Profile">
+                    <a
+                        href="https://github.com/Vishesh-code-22"
+                        aria-label="GitHub Profile"
+                    >
                         <img
                             className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 transform hover:scale-110 transition-transform duration-200"
                             src="/icons/github.png"
                             alt="github"
                         />
                     </a>
-                    <a href="#" aria-label="Twitter Profile">
+                    <a
+                        href="https://x.com/Vishesh22k"
+                        aria-label="Twitter Profile"
+                    >
                         <img
                             className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 transform hover:scale-110 transition-transform duration-200"
                             src="/icons/twitter.png"
                             alt="twitter"
                         />
                     </a>
-                    <a href="#" aria-label="LinkedIn Profile">
+                    <a
+                        href="https://www.linkedin.com/in/vishesh-kumawat-692339238/"
+                        aria-label="LinkedIn Profile"
+                    >
                         <img
                             className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 transform hover:scale-110 transition-transform duration-200"
                             src="/icons/linkedin.png"
