@@ -1,5 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect } from "react";
 import { useRef, useState } from "react";
 
 const Navbar = () => {
@@ -7,6 +8,25 @@ const Navbar = () => {
     const navLinks = useRef(null);
     const mobileMenuRef = useRef(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // track if the user has scrolled down the page
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        // create an event listener for when the user scrolls
+        const handleScroll = () => {
+            // check if the user has scrolled down at least 10px
+            // if so, set the state to true
+            const isScrolled = window.scrollY > 10;
+            setScrolled(isScrolled);
+        };
+
+        // add the event listener to the window
+        window.addEventListener("scroll", handleScroll);
+
+        // cleanup the event listener when the component is unmounted
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useGSAP(() => {
         gsap.fromTo(
@@ -87,16 +107,22 @@ const Navbar = () => {
     };
 
     return (
-        <>
-            <nav className="navbar lg:h-18 md:h-16 h-12 flex justify-between max-w-[1440px] mx-auto px-4 fixed top-0 left-0 right-0 z-50 ">
-                <div className="nav-left flex items-center">
+        <div
+            className={`navbar-container max-w-screen ${
+                scrolled
+                    ? "bg-black/30 backdrop-blur-md border-b border-white/20 transition-all duration-1000"
+                    : ""
+            } flex justify-center lg:h-18 md:h-16 h-12 z-50 fixed top-0 left-0 right-0`}
+        >
+            <nav className="navbar h-full flex justify-between w-[1440px] px-4">
+                <a className="nav-left flex items-center" href="#home">
                     <img
                         src="./icons/nav-logo.png"
                         alt="Brand logo"
                         className="md:h-10 h-8"
                         ref={logoRef}
                     />
-                </div>
+                </a>
 
                 {/* Desktop Navigation */}
                 <div className="nav-right hidden md:flex items-center">
@@ -104,15 +130,6 @@ const Navbar = () => {
                         ref={navLinks}
                         className="flex lg:gap-8 md:gap-6 text-gray-400 lg:text-lg md:text-base"
                     >
-                        <li>
-                            <a
-                                className="group relative cursor-pointer text-gray-400 lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
-                                href="#about"
-                            >
-                                About
-                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-gray-300 group-hover:w-full transition-all duration-300"></span>
-                            </a>
-                        </li>
                         <li>
                             <a
                                 className="group relative cursor-pointer text-gray-400 lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
@@ -195,15 +212,6 @@ const Navbar = () => {
                     <li>
                         <a
                             className="block text-gray-400 text-lg hover:text-gray-300 transition duration-200 py-2 px-4 rounded-md hover:bg-gray-800/30"
-                            href="#about"
-                            onClick={closeMobileMenu}
-                        >
-                            About
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            className="block text-gray-400 text-lg hover:text-gray-300 transition duration-200 py-2 px-4 rounded-md hover:bg-gray-800/30"
                             href="#work"
                             onClick={closeMobileMenu}
                         >
@@ -230,7 +238,7 @@ const Navbar = () => {
                     </li>
                 </ul>
             </div>
-        </>
+        </div>
     );
 };
 

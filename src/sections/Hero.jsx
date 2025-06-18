@@ -67,7 +67,10 @@ const Hero = () => {
     }, []);
 
     return (
-        <section className="hero-section flex flex-col items-center justify-center min-h-screen max-w-[1440px] gap-4 sm:gap-6 md:gap-8 mx-auto px-4 py-16 sm:py-20 md:py-24">
+        <section
+            id="home"
+            className="hero-section flex flex-col items-center justify-center min-h-screen max-w-[1440px] gap-4 sm:gap-6 md:gap-8 mx-auto px-4 py-16 sm:py-20 md:py-24"
+        >
             <h1
                 ref={headlineRef}
                 className="headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-center text-white w-full sm:w-[90%] md:w-[85%] lg:w-[75%] xl:w-[70%] leading-tight sm:leading-snug md:leading-normal"

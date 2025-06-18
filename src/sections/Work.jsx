@@ -99,7 +99,7 @@ const Work = () => {
                         opacity: 1,
                         scale: 1,
                         rotationY: 0,
-                        duration: 1,
+                        duration: 0.3,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: card,

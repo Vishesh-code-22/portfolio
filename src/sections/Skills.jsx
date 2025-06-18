@@ -66,7 +66,7 @@ const Skills = () => {
                 opacity: 1,
                 scale: 1,
                 rotationY: 0,
-                duration: 0.8,
+                duration: 0.1,
                 stagger: {
                     amount: 1.2,
                     grid: [4, 3],
