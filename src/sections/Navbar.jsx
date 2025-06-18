@@ -114,7 +114,7 @@ const Navbar = () => {
                     : ""
             } flex justify-center lg:h-18 md:h-16 h-12 z-50 fixed top-0 left-0 right-0`}
         >
-            <nav className="navbar h-full flex justify-between w-[1440px] px-4">
+            <nav className="navbar h-full flex justify-between w-[1440px] px-4 z-50">
                 <a className="nav-left flex items-center" href="#home">
                     <img
                         src="./icons/nav-logo.png"
@@ -132,7 +132,7 @@ const Navbar = () => {
                     >
                         <li>
                             <a
-                                className="group relative cursor-pointer text-gray-400 lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
+                                className="group relative cursor-pointer lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
                                 href="#work"
                             >
                                 Work
@@ -141,7 +141,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             <a
-                                className="group relative cursor-pointer text-gray-400 lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
+                                className="group relative cursor-pointer lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
                                 href="#skills"
                             >
                                 Skills
@@ -150,7 +150,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             <a
-                                className="group relative cursor-pointer text-gray-400 lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
+                                className="group relative cursor-pointer lg:text-lg md:text-base hover:text-gray-300 transition duration-200"
                                 href="#contact"
                             >
                                 Contact
@@ -167,24 +167,24 @@ const Navbar = () => {
                         className="text-gray-400 hover:text-gray-300 transition-colors duration-200 p-2"
                         aria-label="Toggle mobile menu"
                     >
-                        <div className="w-6 h-5 relative flex flex-col justify-between">
+                        <div className="w-6 h-5 relative">
                             <span
-                                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                                className={`absolute w-full h-0.5 bg-current transition-all duration-300 transform ${
                                     isMobileMenuOpen
-                                        ? "rotate-45 translate-y-2"
-                                        : ""
+                                        ? "rotate-45 top-1/2 -translate-y-1/2"
+                                        : "top-0"
                                 }`}
                             ></span>
                             <span
-                                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                                className={`absolute top-1/2 -translate-y-1/2 w-full h-0.5 bg-current transition-all duration-300 ${
                                     isMobileMenuOpen ? "opacity-0" : ""
                                 }`}
                             ></span>
                             <span
-                                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                                className={`absolute w-full h-0.5 bg-current transition-all duration-300 transform ${
                                     isMobileMenuOpen
-                                        ? "-rotate-45 -translate-y-2"
-                                        : ""
+                                        ? "-rotate-45 top-1/2 -translate-y-1/2"
+                                        : "bottom-0"
                                 }`}
                             ></span>
                         </div>

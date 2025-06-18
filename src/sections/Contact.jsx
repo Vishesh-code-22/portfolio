@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import emailjs from "@emailjs/browser";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -11,7 +12,7 @@ const Contact = () => {
     const formRef = useRef(null);
     const inputRefs = useRef([]);
     const buttonRef = useRef(null);
-    const backgroundRef = useRef(null);
+    const successIconRef = useRef(null);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -20,6 +21,7 @@ const Contact = () => {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
     useGSAP(() => {
         // Animate title characters on scroll
@@ -137,6 +139,46 @@ const Contact = () => {
         };
     }, []);
 
+    const animateSuccess = () => {
+        // Animate button to success state
+        gsap.to(buttonRef.current, {
+            backgroundColor: "#10b981", // Green color
+            scale: 1.05,
+            duration: 0.3,
+            ease: "power2.out",
+        });
+
+        // Animate success icon entrance
+        if (successIconRef.current) {
+            gsap.fromTo(
+                successIconRef.current,
+                {
+                    scale: 0,
+                    rotation: -180,
+                    opacity: 0,
+                },
+                {
+                    scale: 1,
+                    rotation: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "back.out(2)",
+                    delay: 0.2,
+                }
+            );
+        }
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+            setShowSuccess(false);
+            gsap.to(buttonRef.current, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out",
+            });
+        }, 2000);
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -157,27 +199,24 @@ const Contact = () => {
             repeat: 1,
         });
 
-        // Simulate form submission
-        setTimeout(() => {
+        try {
+            // Send email using emailjs API
+            await emailjs.sendForm(
+                import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+                formRef.current,
+                import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+            );
+
+            // Show success animation
+            setShowSuccess(true);
+            animateSuccess();
+        } catch (error) {
+            console.error("Error sending email:", error);
+        } finally {
             setIsSubmitting(false);
-            // Reset form
             setFormData({ name: "", email: "", message: "" });
-
-            // Success animation
-            gsap.to(buttonRef.current, {
-                backgroundColor: "#10b981",
-                duration: 0.3,
-                ease: "power2.out",
-            });
-
-            setTimeout(() => {
-                gsap.to(buttonRef.current, {
-                    backgroundColor: "",
-                    duration: 0.3,
-                    ease: "power2.out",
-                });
-            }, 2000);
-        }, 2000);
+        }
     };
 
     const handleInputFocus = (index) => {
@@ -240,8 +279,9 @@ const Contact = () => {
                 </div>
 
                 {/* Contact Form */}
-                <div
+                <form
                     ref={formRef}
+                    onSubmit={handleSubmit}
                     className="relative backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden"
                 >
                     {/* Gradient overlay */}
@@ -348,11 +388,17 @@ const Contact = () => {
                             <button
                                 ref={buttonRef}
                                 type="submit"
-                                disabled={isSubmitting}
-                                className="relative group px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-105"
+                                disabled={isSubmitting || showSuccess}
+                                className={`relative group px-12 py-4 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg disabled:cursor-not-allowed transform hover:scale-105 ${
+                                    showSuccess
+                                        ? "bg-green-500 hover:shadow-green-500/25"
+                                        : "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-blue-500/25"
+                                } ${isSubmitting ? "opacity-70" : ""}`}
                             >
                                 {/* Button background animation */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                {!showSuccess && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                )}
 
                                 {/* Button content */}
                                 <span className="relative z-10 flex items-center justify-center">
@@ -361,37 +407,45 @@ const Contact = () => {
                                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3"></div>
                                             Sending...
                                         </>
+                                    ) : showSuccess ? (
+                                        <>
+                                            <svg
+                                                ref={successIconRef}
+                                                className="w-6 h-6 mr-3"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M5 13l4 4L19 7"
+                                                />
+                                            </svg>
+                                            Message Sent!
+                                        </>
                                     ) : (
                                         "Send Message"
                                     )}
                                 </span>
 
                                 {/* Glow effect */}
-                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/50 to-purple-600/50 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                <div
+                                    className={`absolute -inset-1 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 ${
+                                        showSuccess
+                                            ? "bg-green-500/50"
+                                            : "bg-gradient-to-r from-blue-600/50 to-purple-600/50"
+                                    }`}
+                                ></div>
                             </button>
                         </div>
                     </div>
 
                     {/* Form glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur opacity-50 -z-10"></div>
-                </div>
+                </form>
             </div>
-
-            <style jsx>{`
-                @keyframes gradient {
-                    0%,
-                    100% {
-                        background-position: 0% 50%;
-                    }
-                    50% {
-                        background-position: 100% 50%;
-                    }
-                }
-
-                .perspective-1000 {
-                    perspective: 1000px;
-                }
-            `}</style>
         </section>
     );
 };
